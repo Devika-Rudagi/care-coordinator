@@ -4,6 +4,7 @@ import {
   ArrowLeftIcon,
   Card,
   CheckIcon,
+  ChecklistIllustration,
   HeartIcon,
   SparkleIcon,
   UserIcon,
@@ -81,13 +82,16 @@ export default async function AboutPage() {
         </h1>
       </div>
 
-      <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-        The weeks right after a hospital discharge are when small things
-        matter most — a missed medication, a forgotten follow-up, a symptom
-        nobody flagged in time. Care Coordinator exists to make that window
-        safer, by giving every caregiver in a family the same clear,
-        up-to-date picture of what needs to happen next.
-      </p>
+      <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
+        <p className="text-lg text-slate-600 leading-relaxed">
+          The weeks right after a hospital discharge are when small things
+          matter most — a missed medication, a forgotten follow-up, a symptom
+          nobody flagged in time. Care Coordinator exists to make that window
+          safer, by giving every caregiver in a family the same clear,
+          up-to-date picture of what needs to happen next.
+        </p>
+        <ChecklistIllustration className="w-full max-w-[240px] mx-auto" />
+      </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
         {stats.map((s) => (

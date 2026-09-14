@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import SignOutButton from "./components/SignOutButton";
@@ -10,6 +9,11 @@ import {
   PlusIcon,
   HeartIcon,
   EmptyStateIllustration,
+  CoordinationIllustration,
+  ChecklistIllustration,
+  SparkleIcon,
+  CheckIcon,
+  UserIcon,
   criticalityTone,
 } from "./components/ui";
 
@@ -20,7 +24,121 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) {
+    return (
+      <main className="max-w-5xl mx-auto px-6">
+        {/* Hero */}
+        <section className="grid md:grid-cols-2 gap-10 items-center py-16 md:py-24">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
+              <SparkleIcon className="w-3.5 h-3.5" />
+              AI-assisted, human-confirmed
+            </div>
+            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 leading-tight mb-5">
+              Everyone on the same page, from day one home.
+            </h1>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              Care Coordinator turns confusing hospital discharge paperwork
+              into one shared, live checklist — so every caregiver in a
+              family knows exactly what's been done, and what's next.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/login">
+                <Button variant="primary" size="lg">
+                  Sign in to get started
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button variant="secondary" size="lg">
+                  How it works
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <CoordinationIllustration />
+        </section>
+
+        {/* Why this exists */}
+        <section className="py-14 border-t border-slate-100">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <ChecklistIllustration />
+            <div>
+              <h2 className="text-sm font-medium text-teal-700 uppercase tracking-wide mb-3">
+                The problem
+              </h2>
+              <p className="text-2xl font-medium text-slate-900 leading-snug mb-4">
+                Hospital readmissions spike in the 30 days after
+                discharge — usually not from a lack of information, but
+                from nobody being sure who's tracking what.
+              </p>
+              <p className="text-slate-600 leading-relaxed">
+                Discharge instructions get split across family members who
+                each see only part of the picture. Care Coordinator gives
+                everyone the same live view instead.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="py-14 border-t border-slate-100">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-8 text-center">
+            How it works
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <Card className="p-6">
+              <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+                <SparkleIcon className="w-5 h-5" />
+              </div>
+              <h3 className="font-medium text-slate-900 mb-1.5">
+                Paste or photograph paperwork
+              </h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                AI reads discharge instructions and pulls out medications,
+                follow-ups, and warning signs automatically.
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+                <CheckIcon className="w-5 h-5" />
+              </div>
+              <h3 className="font-medium text-slate-900 mb-1.5">
+                A human confirms every item
+              </h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Nothing becomes a real task until a caregiver reviews it —
+                AI proposes, a person always decides.
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+                <UserIcon className="w-5 h-5" />
+              </div>
+              <h3 className="font-medium text-slate-900 mb-1.5">
+                Everyone stays in sync
+              </h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Caregivers see updates live. The patient gets their own
+                simple view — no login needed.
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        {/* Closing CTA */}
+        <section className="py-16 text-center border-t border-slate-100">
+          <h2 className="text-2xl font-medium text-slate-900 mb-3">
+            Ready to bring your family's care team together?
+          </h2>
+          <Link href="/login">
+            <Button variant="primary" size="lg" className="mt-2">
+              Sign in with your email
+            </Button>
+          </Link>
+        </section>
+      </main>
+    );
+  }
 
   // Two explicit queries instead of PostgREST's nested-select shorthand —
   // easier to debug, and avoids relying on foreign-key relationship

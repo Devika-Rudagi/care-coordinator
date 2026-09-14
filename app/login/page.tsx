@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Button, Card, HeartIcon } from "../components/ui";
+import { Button, Card, CoordinationIllustration, HeartIcon } from "../components/ui";
 
 const supabase = createClient();
 
@@ -58,7 +58,15 @@ function LoginForm() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
-      <Card className="p-8 max-w-sm w-full">
+      <div className="max-w-4xl w-full grid md:grid-cols-2 gap-10 items-center">
+        <div className="hidden md:block">
+          <CoordinationIllustration className="w-full max-w-xs mx-auto" />
+          <p className="text-center text-slate-500 text-sm mt-6 max-w-xs mx-auto">
+            One shared checklist for everyone caring for the people you love.
+          </p>
+        </div>
+
+        <Card className="p-8 max-w-sm w-full mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center">
             <HeartIcon className="w-5 h-5" />
@@ -141,7 +149,8 @@ function LoginForm() {
             </button>
           </>
         )}
-      </Card>
+        </Card>
+      </div>
     </main>
   );
 }

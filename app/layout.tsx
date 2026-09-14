@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "./components/Footer";
 import "./globals.css";
@@ -19,6 +19,15 @@ export const metadata: Metadata = {
     template: "%s · Care Coordinator",
   },
   description: "A shared checklist for the weeks after a hospital discharge.",
+};
+
+// viewport-fit=cover lets the patient view use safe-area-inset padding
+// (below) to avoid content sitting under an iPhone's notch or home
+// indicator — without this, safe-area CSS has no effect at all.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

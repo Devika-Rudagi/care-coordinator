@@ -218,7 +218,13 @@ export default function SimplePatientView({
   const grouped = groupByDate(tasks);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-teal-50 to-white p-6 max-w-md mx-auto">
+    <main
+      className="min-h-screen bg-gradient-to-b from-teal-50 to-white px-6 max-w-md mx-auto"
+      style={{
+        paddingTop: "max(1.5rem, env(safe-area-inset-top))",
+        paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
+      }}
+    >
       <Link
         href={`/patient/${patientId}`}
         className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 mb-8"
@@ -325,14 +331,14 @@ export default function SimplePatientView({
             value={inviteName}
             onChange={(e) => setInviteName(e.target.value)}
             placeholder="Their name"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 mb-3 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+            className="w-full text-base border border-slate-200 rounded-xl px-4 py-2.5 mb-3 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
           />
           <input
             value={inviteEmail}
             onChange={(e) => setInviteEmail(e.target.value)}
             type="email"
             placeholder="Their email"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 mb-3 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+            className="w-full text-base border border-slate-200 rounded-xl px-4 py-2.5 mb-3 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
           />
           {inviteError && (
             <div className="bg-rose-50 border border-rose-200 text-rose-700 text-sm rounded-xl px-4 py-2.5 mb-3">
