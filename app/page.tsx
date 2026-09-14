@@ -153,17 +153,18 @@ export default async function Home() {
     new Set((memberships ?? []).map((m) => m.patient_id)),
   );
 
-  // The name they typed when creating a patient or accepting an invite —
-  // falls back to their email only if they have no membership rows yet
-  // (e.g. signed in with only a pending invite, not yet accepted).
-  const displayName = memberships?.[0]?.name || user.email;
-
   const { data: profile } = await supabase
     .from("profiles")
-    .select("is_admin")
+    .select("is_admin, name")
     .eq("user_id", user.id)
     .maybeSingle();
   const isAdmin = profile?.is_admin ?? false;
+
+  // Priority: the caregiver's own saved profile name (Task 2) > a name
+  // recorded against a specific patient's care circle > their raw email
+  // as a last resort. Profile name wins first since it's their own
+  // stated identity, not tied to any one patient.
+  const displayName = profile?.name || memberships?.[0]?.name || user.email;
 
   let patients: any[] = [];
   let patientsError: any = null;
